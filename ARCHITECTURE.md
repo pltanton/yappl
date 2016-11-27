@@ -16,3 +16,36 @@ Application life cycle could be described as:
 8. client chose a result and _host_ sends final result for _plugin_
 9. _host_ closes GUI and waits while _plugin_ completes action
 10. _plugin_ does something with search result, then terminates
+
+#
+Host-Plugin communication protocol
+==================================
+1. using json for communication
+2. on start _plugin_ send json to stdout, then listens for answer
+3. first output from _plugin_ to _host_:
+```json
+{
+"items":[
+	{
+		"id":0,
+		"string":"some words like name, description, any tags and etc",
+		"name":"name of the item",
+		"description":"Description of the item",
+		"icon":"path/to/the/icon",
+		"actions":["action1","action2"]
+	},
+	{
+		"id":1,
+		"string":"some words like name, description, any tags and etc",
+		"name":"name of the item",
+		"description":"Description of the item",
+		"icon":"path/to/the/icon",
+		"actions":["action1","action2"]
+	}
+]
+}
+
+```
+4. _host_ sends chosen item(id) and action(string) to _plugin_ 
+5. _plugin_ do the job 
+
